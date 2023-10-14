@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
   const initialValue = { email: "", password: "" };
@@ -8,7 +8,7 @@ const Login = () => {
   const [finalErrors, setFinalErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
-  // const navigate = useNavigate();
+  const history = useNavigate();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ const Login = () => {
     setIsSubmit(true);
     setFinalErrors(validate(data));
     if (Object.keys(finalErrors).length === 0 && isSubmit) {
-      window.location.assign("/read");
+     history("/read");
     }
     // console.log(finalErrors);
   };

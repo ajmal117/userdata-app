@@ -2,13 +2,15 @@ import React from "react";
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 import "../Signup.css";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   // for state
   const options = ["Gujarat", " Maharashtra", "Karnataka"];
   const [value, setValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
-
+  
+  const history = useNavigate();
   //use for data sent to backend
   const initialValue = {
     name: "",
@@ -33,7 +35,7 @@ const SignUp = () => {
       alert("Sign Up successfull & back to login page in 3 sec.");
       // console.log("signUp successfull");
       setInterval(() => {
-        window.location.assign("/");
+        history('/')
       }, 3000);
     }
   }, [finalErrors, isSubmit]);
