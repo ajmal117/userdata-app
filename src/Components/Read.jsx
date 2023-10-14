@@ -13,6 +13,10 @@ function Read() {
         console.log("response :", res);
       });
   };
+  useEffect(() => {
+    geteData();
+    alert("wait a moment, data is loading...");
+  }, []);
   const handleDelete = (id) => {
     axios
       .delete(`https://647d6bbbaf9847108549ae5c.mockapi.io/crud/${id}`)
@@ -22,22 +26,23 @@ function Read() {
     console.log("data deleted");
   };
 
-  useEffect(() => {
-    geteData();
-  }, []);
-
-  const handleSave = (id, name, email) => {
+  const handleEdit = (id, name, email, phone) => {
     localStorage.setItem("id", id);
     localStorage.setItem("name", name);
     localStorage.setItem("email", email);
+    localStorage.setItem("phone", phone);
   };
 
   return (
     <>
+      <div>note: filter is in proceeding ...</div>
       <div className="d-flex justify-content-between my-3">
         <h2>List Of Data</h2>
+        <Link to="/create">
+          <button className="btn btn-success">Create User </button>
+        </Link>
         <Link to="/">
-          <button className="btn btn-success">Create</button>
+          <button className="btn btn-success">Log out</button>
         </Link>
       </div>
       <table className="table">
@@ -46,6 +51,9 @@ function Read() {
             <th scope="col">#ID</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
+            <th scope="col">Mobile number</th>
+            <th scope="col">Op1</th>
+            <th scope="col">Op2</th>
           </tr>
         </thead>
 
@@ -57,13 +65,20 @@ function Read() {
                   <th scope="row">{item.id}</th>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
+                  <td>{item.phone}</td>
                   <td>
                     <Link to="/update">
                       <button
                         className="btn btn-success"
                         onClick={() => {
-                          handleSave(item.id, item.name, item.email);
-                        }}>
+                          handleEdit(
+                            item.id,
+                            item.name,
+                            item.email,
+                            item.phone
+                          );
+                        }}
+                      >
                         Edit
                       </button>
                     </Link>
@@ -73,7 +88,8 @@ function Read() {
                       className="btn btn-danger"
                       onClick={() => {
                         handleDelete(item.id);
-                      }}>
+                      }}
+                    >
                       Delete
                     </button>
                   </td>

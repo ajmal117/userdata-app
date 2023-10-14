@@ -7,6 +7,7 @@ function Update() {
   const [id, setId] = useState(0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState();
 
   const header = { "access-control-allow-origin": "*" };
   const navigate = useNavigate();
@@ -15,24 +16,24 @@ function Update() {
     setId(localStorage.getItem("id"));
     setName(localStorage.getItem("name"));
     setEmail(localStorage.getItem("email"));
+    setPhone(localStorage.getItem("phone"));
   }, []);
 
   const handleUpdate = (e) => {
-    console.log('clicked')
+    console.log("clicked");
     e.preventDefault();
-    axios.put(
-      `https://647d6bbbaf9847108549ae5c.mockapi.io/crud/${id}`,
-      {
+    axios
+      .put(`https://647d6bbbaf9847108549ae5c.mockapi.io/crud/${id}`, {
         name: name,
         email: email,
-        header
+        phone: phone,
+        header,
       })
-        //   use useNavigate after successfully update the data
-        .then(() => {
-            console.log('data updated')
-          navigate("/read");
-        })
-    
+      //   use useNavigate after successfully update the data
+      .then(() => {
+        console.log("data updated");
+        navigate("/read");
+      });
   };
 
   return (
@@ -68,10 +69,26 @@ function Update() {
             aria-describedby="emailHelp"
           />
         </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">
+            Mobile
+          </label>
+          <input
+            onChange={(e) => {
+              setPhone(e.target.value);
+            }}
+            value={phone}
+            type="number"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
         <button
           type="submit"
           onClick={handleUpdate}
-          className="btn btn-primary">
+          className="btn btn-primary"
+        >
           Update
         </button>
       </form>
