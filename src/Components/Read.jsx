@@ -35,7 +35,6 @@ function Read() {
 
   return (
     <>
-      <div>note: filter is in proceeding ...</div>
       <div className="d-flex justify-content-between my-3">
         <h2>List Of Data</h2>
         <Link to="/create">
